@@ -22,9 +22,9 @@ function App() {
   const [originalString, setOriginalString] = useState("");
   const [foregroundColor, setForegroundColor] = useState({
     rgb: {
-      r: 0,
-      g: 0,
-      b: 0,
+      r: 10,
+      g: 150,
+      b: 87,
       a: 1,
     },
   });
@@ -136,6 +136,7 @@ function App() {
               backgroundColor: "white",
               boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)",
               fontFamily: "'Kirang Haerang', cursive; font-size: 4rem",
+              color: "green",
             }}
           >
             R-QR Code Generator
@@ -173,6 +174,7 @@ function App() {
               margin="normal"
               value={originalString}
               onChange={(evt) => setOriginalString(evt.target.value)}
+              color="success"
             />
 
             <Slider
@@ -182,6 +184,7 @@ function App() {
               value={typeof pictureSize === "number" ? pictureSize : 0}
               onChange={handlePictureSizeChange}
               aria-labelledby="input-slider"
+              color="success"
             />
 
             <FormGroup>
@@ -191,6 +194,7 @@ function App() {
                     label="uhu"
                     checked={margin}
                     onChange={handleMarginChange}
+                    color="success"
                   />
                 }
                 label="Margin"
