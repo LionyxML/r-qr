@@ -135,7 +135,7 @@ function App() {
               mt: 4,
               backgroundColor: "white",
               boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)",
-              fontFamily: "'Kirang Haerang', cursive; font-size: 4rem",
+              fontFamily: "'Monofett', cursive; font-size: 4rem",
               color: "green",
             }}
           >
@@ -168,7 +168,7 @@ function App() {
           >
             <TextField
               fullWidth
-              label="Text goes here "
+              label="Type here! "
               id="message"
               name="message"
               margin="normal"
