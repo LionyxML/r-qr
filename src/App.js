@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { Box, InputLabel, Slider, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  FormControlLabel,
+  FormGroup,
+  InputLabel,
+  Slider,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
 import reactCSS from "reactcss";
 import { SketchPicker } from "react-color";
 
@@ -22,14 +31,15 @@ function App() {
   const [displayFgColorPicker, setDisplayFgColorPicker] = useState(false);
   const [backgroundColor, setBackroundColor] = useState({
     rgb: {
-      r: 255,
-      g: 255,
-      b: 255,
+      r: 238,
+      g: 238,
+      b: 238,
       a: 1,
     },
   });
   const [displayBgColorPicker, setDisplayBgColorPicker] = useState(false);
   const [pictureSize, setPictureSize] = useState(PICT_DEFAULT_SIZE);
+  const [margin, setMargin] = useState(true);
 
   const handleOpenFg = () => {
     setDisplayFgColorPicker(true);
@@ -57,6 +67,10 @@ function App() {
 
   const handlePictureSizeChange = (event, newSize) => {
     setPictureSize(newSize);
+  };
+
+  const handleMarginChange = (event) => {
+    setMargin(event.target.checked);
   };
 
   const styles = reactCSS({
@@ -103,13 +117,11 @@ function App() {
           my: 8,
         }}
       >
-        {" "}
-        QR-Code Generator{" "}
+        R-QR Code Generator
       </Typography>
 
       <Box
         sx={{
-          my: 8,
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
@@ -119,7 +131,6 @@ function App() {
       >
         <Box
           sx={{
-            my: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -128,6 +139,7 @@ function App() {
           }}
         >
           <TextField
+            fullWidth
             label="Text goes here "
             id="message"
             name="message"
@@ -145,6 +157,18 @@ function App() {
             aria-labelledby="input-slider"
           />
 
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  label="uhu"
+                  checked={margin}
+                  onChange={handleMarginChange}
+                />
+              }
+              label="Margin"
+            />
+          </FormGroup>
           <div>
             <InputLabel>Foreground</InputLabel>
             <div style={styles.swatch} onClick={handleOpenFg}>
@@ -186,7 +210,7 @@ function App() {
             bgColor={`rgba(${backgroundColor.rgb.r}, ${backgroundColor.rgb.g}, ${backgroundColor.rgb.b}, ${backgroundColor.rgb.a})`}
             fgColor={`rgba(${foregroundColor.rgb.r}, ${foregroundColor.rgb.g}, ${foregroundColor.rgb.b}, ${foregroundColor.rgb.a})`}
             level="M"
-            includeMargin={true}
+            includeMargin={margin}
           />
         </Box>
       </Box>
