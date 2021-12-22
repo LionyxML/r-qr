@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, InputLabel, TextField, Typography } from "@mui/material";
+import { Box, InputLabel, Slider, TextField, Typography } from "@mui/material";
 import reactCSS from "reactcss";
 import { SketchPicker } from "react-color";
 
@@ -7,6 +7,9 @@ import "./App.css";
 var QRCode = require("qrcode.react");
 
 function App() {
+  const PICT_DEFAULT_SIZE = 200;
+  const PICT_MIN_SIZE = 150;
+  const PICT_MAX_SIZE = 400;
   const [originalString, setOriginalString] = useState("");
   const [foregroundColor, setForegroundColor] = useState({
     rgb: {
@@ -26,6 +29,7 @@ function App() {
     },
   });
   const [displayBgColorPicker, setDisplayBgColorPicker] = useState(false);
+  const [pictureSize, setPictureSize] = useState(PICT_DEFAULT_SIZE);
 
   const handleOpenFg = () => {
     setDisplayFgColorPicker(true);
@@ -49,6 +53,10 @@ function App() {
 
   const handleBgChange = (color) => {
     setBackroundColor(color);
+  };
+
+  const handlePictureSizeChange = (event, newSize) => {
+    setPictureSize(newSize);
   };
 
   const styles = reactCSS({
@@ -120,12 +128,21 @@ function App() {
           }}
         >
           <TextField
-            label="Type here: "
+            label="Text goes here "
             id="message"
             name="message"
             margin="normal"
             value={originalString}
             onChange={(evt) => setOriginalString(evt.target.value)}
+          />
+
+          <Slider
+            defaultValue={PICT_DEFAULT_SIZE}
+            min={PICT_MIN_SIZE}
+            max={PICT_MAX_SIZE}
+            value={typeof pictureSize === "number" ? pictureSize : 0}
+            onChange={handlePictureSizeChange}
+            aria-labelledby="input-slider"
           />
 
           <div>
@@ -165,7 +182,7 @@ function App() {
         <Box>
           <QRCode
             value={originalString}
-            size={250}
+            size={pictureSize}
             bgColor={`rgba(${backgroundColor.rgb.r}, ${backgroundColor.rgb.g}, ${backgroundColor.rgb.b}, ${backgroundColor.rgb.a})`}
             fgColor={`rgba(${foregroundColor.rgb.r}, ${foregroundColor.rgb.g}, ${foregroundColor.rgb.b}, ${foregroundColor.rgb.a})`}
             level="M"
