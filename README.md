@@ -1,6 +1,8 @@
 # R-QR
 
-A simple QR-Code image creator.
+A simple QR-Code image creator:
+
+![The App](./img/img1.png)
 
 ## Install
 
