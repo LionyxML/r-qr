@@ -4,7 +4,7 @@ A simple QR-Code image creator.
 
 ## Install
 
-In the project directory, you can run:
+From the project directory, you can run:
 
 `npm install`
 
