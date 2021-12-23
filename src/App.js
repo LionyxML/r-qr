@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Box,
+  Button,
   FormControlLabel,
   FormGroup,
   InputLabel,
@@ -9,6 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import DownloadIcon from "@mui/icons-material/Download";
 import reactCSS from "reactcss";
 import { SketchPicker } from "react-color";
 
@@ -22,9 +24,9 @@ function App() {
   const [originalString, setOriginalString] = useState("");
   const [foregroundColor, setForegroundColor] = useState({
     rgb: {
-      r: 10,
-      g: 150,
-      b: 87,
+      r: 0,
+      g: 128,
+      b: 2,
       a: 1,
     },
   });
@@ -40,6 +42,7 @@ function App() {
   const [displayBgColorPicker, setDisplayBgColorPicker] = useState(false);
   const [pictureSize, setPictureSize] = useState(PICT_DEFAULT_SIZE);
   const [margin, setMargin] = useState(true);
+  const QRCodeRef = useRef(null);
 
   const handleOpenFg = () => {
     setDisplayFgColorPicker(true);
@@ -72,6 +75,9 @@ function App() {
   const handleMarginChange = (event) => {
     setMargin(event.target.checked);
   };
+
+  const QRCanvas = QRCodeRef.current?.children[0];
+  const QRImg = QRCanvas?.toDataURL("image/png");
 
   const styles = reactCSS({
     default: {
@@ -168,7 +174,7 @@ function App() {
           >
             <TextField
               fullWidth
-              label="Type here! "
+              label="Type or paste your data here! "
               id="message"
               name="message"
               margin="normal"
@@ -184,7 +190,7 @@ function App() {
               value={typeof pictureSize === "number" ? pictureSize : 0}
               onChange={handlePictureSizeChange}
               aria-labelledby="input-slider"
-              color="success"
+              style={{ color: "green" }}
             />
 
             <FormGroup>
@@ -235,14 +241,26 @@ function App() {
             </div>
           </Box>
           <Box>
-            <QRCode
-              value={originalString}
-              size={pictureSize}
-              bgColor={`rgba(${backgroundColor.rgb.r}, ${backgroundColor.rgb.g}, ${backgroundColor.rgb.b}, ${backgroundColor.rgb.a})`}
-              fgColor={`rgba(${foregroundColor.rgb.r}, ${foregroundColor.rgb.g}, ${foregroundColor.rgb.b}, ${foregroundColor.rgb.a})`}
-              level="M"
-              includeMargin={margin}
-            />
+            <div ref={QRCodeRef}>
+              <QRCode
+                value={originalString}
+                size={pictureSize}
+                bgColor={`rgba(${backgroundColor.rgb.r}, ${backgroundColor.rgb.g}, ${backgroundColor.rgb.b}, ${backgroundColor.rgb.a})`}
+                fgColor={`rgba(${foregroundColor.rgb.r}, ${foregroundColor.rgb.g}, ${foregroundColor.rgb.b}, ${foregroundColor.rgb.a})`}
+                level="M"
+                includeMargin={margin}
+              />
+            </div>
+
+            <Button
+              variant="contained"
+              endIcon={<DownloadIcon />}
+              download="r-qr.png"
+              href={QRImg}
+              color="success"
+            >
+              Download
+            </Button>
           </Box>
         </Box>
       </Box>
