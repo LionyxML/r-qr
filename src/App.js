@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -12,9 +12,11 @@ import {
 } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import reactCSS from "reactcss";
-import { SketchPicker } from "react-color";
-
 import "./App.css";
+import { Suspense } from "react";
+
+const ColorPicker = React.lazy(() => import("./components/ColorPicker"));
+
 var QRCode = require("qrcode.react");
 
 function App() {
@@ -215,10 +217,12 @@ function App() {
               {displayFgColorPicker ? (
                 <div style={styles.popover}>
                   <div style={styles.cover} onClick={handleCloseFg} />
-                  <SketchPicker
-                    color={foregroundColor}
-                    onChange={handleFgChange}
-                  />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ColorPicker
+                      color={backgroundColor}
+                      onChange={handleBgChange}
+                    />
+                  </Suspense>
                 </div>
               ) : null}
             </div>
@@ -232,10 +236,12 @@ function App() {
               {displayBgColorPicker ? (
                 <div style={styles.popover}>
                   <div style={styles.cover} onClick={handleCloseBg} />
-                  <SketchPicker
-                    color={backgroundColor}
-                    onChange={handleBgChange}
-                  />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ColorPicker
+                      color={backgroundColor}
+                      onChange={handleBgChange}
+                    />
+                  </Suspense>
                 </div>
               ) : null}
             </div>
