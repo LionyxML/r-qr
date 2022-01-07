@@ -219,8 +219,8 @@ function App() {
                   <div style={styles.cover} onClick={handleCloseFg} />
                   <Suspense fallback={<div>Loading...</div>}>
                     <ColorPicker
-                      color={backgroundColor}
-                      onChange={handleBgChange}
+                      color={foregroundColor}
+                      onChange={handleFgChange}
                     />
                   </Suspense>
                 </div>
