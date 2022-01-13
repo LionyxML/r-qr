@@ -124,7 +124,7 @@ function App() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           gridGap: "40px",
           height: "500px",
         }}
@@ -156,6 +156,7 @@ function App() {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            flexWrap: "wrap",
             justifyContent: "center",
             border: "1px solid black",
             borderRadius: "20px",
