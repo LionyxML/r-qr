@@ -20,6 +20,7 @@ const ColorPicker = React.lazy(() => import("./components/ColorPicker"));
 var QRCode = require("qrcode.react");
 
 function App() {
+  const STRING_MAX_LENGTH = 2048;
   const PICT_DEFAULT_SIZE = 300;
   const PICT_MIN_SIZE = 150;
   const PICT_MAX_SIZE = 400;
@@ -182,6 +183,7 @@ function App() {
               name="message"
               margin="normal"
               value={originalString}
+              inputProps={{ maxLength: STRING_MAX_LENGTH }}
               onChange={(evt) => setOriginalString(evt.target.value)}
               color="success"
             />
